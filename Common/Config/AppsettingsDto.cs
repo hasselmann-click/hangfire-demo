@@ -1,6 +1,6 @@
 ﻿namespace Common.Config;
 
-public class Configuration
+public class AppsettingsDto
 {
     public required DatabaseConfig Database { get; set; }
 

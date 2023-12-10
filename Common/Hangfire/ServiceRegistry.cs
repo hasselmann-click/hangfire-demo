@@ -7,10 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Common.Hangfire;
 public static class ServiceRegistry
 {
-    public static IServiceCollection AddHangfire(this IServiceCollection services, IConfiguration config)
+    public static void ConfigureHangfireClient(IConfiguration config, IGlobalConfiguration globalConfiguration)
     {
         var dbConfig = config.Get<AppsettingsDto>()?.Database ?? throw new Exception("Database configuration not found");
-        GlobalConfiguration.Configuration
+        globalConfiguration
             .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
             .UseColouredConsoleLogProvider()
             .UseSimpleAssemblyNameTypeSerializer()
@@ -23,7 +23,5 @@ public static class ServiceRegistry
                 UseRecommendedIsolationLevel = true,
                 DisableGlobalLocks = true
             });
-
-        return services;
     }
 }

@@ -18,6 +18,38 @@
             "env": {
                 "DOTNET_ENVIRONMENT": "Development"
             }
+        },
+        {
+            "name": "Hangfire.Dashboard (https)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "${defaultBuildTask}",
+            "program": "${workspaceFolder}/Hangfire.Dashboard/bin/Debug/net8.0/Hangfire.Dashboard.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Hangfire.Dashboard",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "https://localhost:7288;http://localhost:5158"
+            }
+        },
+        {
+            "name": "Hangfire.Dashboard (http)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "${defaultBuildTask}",
+            "program": "${workspaceFolder}/Hangfire.Dashboard/bin/Debug/net8.0/Hangfire.Dashboard.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Hangfire.Dashboard",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:5158"
+            }
         }
     ]
 }

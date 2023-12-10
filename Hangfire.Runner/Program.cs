@@ -26,9 +26,8 @@ public class Program
             })
             .ConfigureServices((hostContext, services) =>
             {
-                services
-                    .AddHangfire(hostContext.Configuration)
-                    .AddHostedService<HostedBackgroundService>();
+                ServiceRegistry.ConfigureHangfireClient(hostContext.Configuration, GlobalConfiguration.Configuration);
+                services.AddHostedService<HostedBackgroundService>();
             })
             .Build();
 

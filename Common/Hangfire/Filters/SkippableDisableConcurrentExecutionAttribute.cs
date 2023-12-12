@@ -1,9 +1,8 @@
-
 using Hangfire;
 using Hangfire.Common;
 using Hangfire.Server;
 
-namespace Hangfire.Runner.Filters;
+namespace Common.Hangfire.Filters;
 
 public class SkippableDisableConcurrentExecutionAttribute : JobFilterAttribute, IServerFilter
 {
@@ -18,7 +17,7 @@ public class SkippableDisableConcurrentExecutionAttribute : JobFilterAttribute, 
 
     public void OnPerforming(PerformingContext filterContext)
     {
-        if (filterContext.Items.TryGetValue(SkipItemKey, out var skip) && (skip as bool?) == true)
+        if (filterContext.Items.TryGetValue(SkipItemKey, out var skip) && skip as bool? == true)
         {
             return;
         }
@@ -28,7 +27,7 @@ public class SkippableDisableConcurrentExecutionAttribute : JobFilterAttribute, 
 
     public void OnPerformed(PerformedContext filterContext)
     {
-        if (filterContext.Items.TryGetValue(SkipItemKey, out var skip) && (skip as bool?) == true)
+        if (filterContext.Items.TryGetValue(SkipItemKey, out var skip) && skip as bool? == true)
         {
             return;
         }

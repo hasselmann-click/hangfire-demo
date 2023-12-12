@@ -1,7 +1,7 @@
 using Hangfire.Common;
 using Hangfire.States;
 
-namespace Hangfire.Runner.Filters;
+namespace Common.Hangfire.Filters;
 
 public class PreserveOriginalQueueAttribute : JobFilterAttribute, IElectStateFilter
 {
@@ -19,6 +19,7 @@ public class PreserveOriginalQueueAttribute : JobFilterAttribute, IElectStateFil
         {
             context.Connection.SetJobParameter(context.BackgroundJob.Id, Param_OriginalQueue,
                 SerializationHelper.Serialize(enqueuedState.Queue));
+            originalQueue = enqueuedState.Queue;
         }
 
         enqueuedState.Queue = originalQueue;

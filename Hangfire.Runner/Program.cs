@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Common.Config;
 using Common.Hangfire;
+using Common.Job;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,8 +28,15 @@ public class Program
             })
             .ConfigureServices((hostContext, services) =>
             {
-                ServiceRegistry.ConfigureHangfireClient(hostContext.Configuration, GlobalConfiguration.Configuration);
-                services.AddHostedService<HostedBackgroundService>();
+                var appsettings = hostContext.Configuration.Get<AppsettingsDto>() ?? throw new Exception("Could not load appsettings");
+                services
+                    .AddSingleton(appsettings)
+                    .AddCustomHangfire(appsettings, GlobalConfiguration.Configuration)
+                    .AddHostedService<HostedBackgroundService>()
+
+                    // add jobs here
+                    .AddTransient<IGenericJob, HelloWorldJob.HelloWorldJob>()                    
+                    ;
             })
             .Build();
 

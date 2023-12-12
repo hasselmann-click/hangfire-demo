@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hangfire.Dashboard", "Hangfire.Dashboard\Hangfire.Dashboard.csproj", "{746EF2DA-5175-4D40-A4E0-37CDC89F7DFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorldJob", "HelloWorldJob\HelloWorldJob.csproj", "{8EA399FB-26CE-49E3-8A2F-47F6A4A36F1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{746EF2DA-5175-4D40-A4E0-37CDC89F7DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{746EF2DA-5175-4D40-A4E0-37CDC89F7DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{746EF2DA-5175-4D40-A4E0-37CDC89F7DFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EA399FB-26CE-49E3-8A2F-47F6A4A36F1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EA399FB-26CE-49E3-8A2F-47F6A4A36F1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EA399FB-26CE-49E3-8A2F-47F6A4A36F1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EA399FB-26CE-49E3-8A2F-47F6A4A36F1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,7 +1,7 @@
 using Hangfire.Common;
 using Hangfire.Server;
 
-namespace Hangfire.Runner.Filters;
+namespace Common.Hangfire.Filters;
 
 public class SkipConcurrentExecutionFilter : JobFilterAttribute, IServerFilter
 {

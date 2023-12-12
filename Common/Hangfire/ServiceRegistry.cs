@@ -1,15 +1,15 @@
 using Common.Config;
+using Common.Hangfire.Filters;
 using Hangfire;
 using Hangfire.SqlServer;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Common.Hangfire;
 public static class ServiceRegistry
 {
-    public static void ConfigureHangfireClient(IConfiguration config, IGlobalConfiguration globalConfiguration)
+    public static IServiceCollection AddCustomHangfire(this IServiceCollection services, AppsettingsDto appsettings, IGlobalConfiguration globalConfiguration)
     {
-        var dbConfig = config.Get<AppsettingsDto>()?.Database ?? throw new Exception("Database configuration not found");
+        var dbConfig = appsettings.Database;
         globalConfiguration
             .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
             .UseColouredConsoleLogProvider()
@@ -22,6 +22,17 @@ public static class ServiceRegistry
                 QueuePollInterval = TimeSpan.Zero,
                 UseRecommendedIsolationLevel = true,
                 DisableGlobalLocks = true
-            });
+            })
+            .UseActivator(new ContainerJobActivator(services.BuildServiceProvider()))
+            .UseFilter(new AutomaticRetryAttribute { Attempts = 0, LogEvents = true, OnAttemptsExceeded = AttemptsExceededAction.Delete })
+            .UseFilter(new PreserveOriginalQueueAttribute())
+            .UseFilter(new SkippableDisableConcurrentExecutionAttribute(timeoutInSeconds: 5))
+            ;
+
+        return services
+            .AddTransient<JobActivator, ContainerJobActivator>()
+            .AddScoped<IRecurringJobManager, RecurringJobManager>()
+        ;
     }
+
 }

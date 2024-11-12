@@ -18,8 +18,8 @@ public class Program
             .ConfigureAppConfiguration((hostContext, configApp) =>
             {
                 configApp
-                    .AddJsonFile("appsettings.json", optional: true)
-                    .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true)
+                    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                    .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true)
                     .AddEnvironmentVariables()
                     .AddCommandLine(args);
             })

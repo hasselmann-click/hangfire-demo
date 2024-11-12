@@ -1,5 +1,4 @@
 using Common.Config;
-using Common.Hangfire;
 using Common.Job;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
@@ -12,10 +11,6 @@ public class HostedBackgroundService(ILogger<HostedBackgroundService> logger, IE
     IConfiguration configuration, IRecurringJobManager jobManager, JobActivator jobActivator) : BackgroundService
 {
 
-    private readonly ILogger<HostedBackgroundService> logger = logger;
-    private readonly List<IGenericJob> jobs = jobs.ToList();
-    private readonly IRecurringJobManager jobManager = jobManager;
-    private readonly JobActivator jobActivator = jobActivator;
     private readonly AppsettingsDto appsettings = configuration.Get<AppsettingsDto>() ?? throw new Exception("Could not load appsettings");
 
     public override async Task StartAsync(CancellationToken cancellationToken)

@@ -17,8 +17,9 @@ public class Program
             .UseEnvironment(Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT") ?? Environments.Development)
             .ConfigureAppConfiguration((hostContext, configApp) =>
             {
-                configApp.AddJsonFile("appsettings.json", optional: true)
-                    .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: false)
+                configApp
+                    .AddJsonFile("appsettings.json", optional: true)
+                    .AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: true)
                     .AddEnvironmentVariables()
                     .AddCommandLine(args);
             })

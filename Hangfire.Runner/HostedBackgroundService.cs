@@ -23,10 +23,10 @@ public class HostedBackgroundService(ILogger<HostedBackgroundService> logger, IE
         try
         {
             await base.StartAsync(cancellationToken);
+
+            // job configs
             var jobDict = jobs.ToDictionary(j => j.JobIdentifier, StringComparer.InvariantCultureIgnoreCase);
             var implementedJobIds = jobDict.Keys;
-
-            // load config
             var jobConfigs = appsettings.Hangfire.Jobs;
             var queue = appsettings.Hangfire.Queue;
 
@@ -37,8 +37,8 @@ public class HostedBackgroundService(ILogger<HostedBackgroundService> logger, IE
 
             var query = $"SELECT [Key] FROM [Hangfire].[Hash] where Field='Queue' AND Value=@queue";
             using var cmd = new SqlCommand(query, connection);
-
             cmd.Parameters.AddWithValue("@queue", queue);
+
             using var reader = await cmd.ExecuteReaderAsync(cancellationToken);
             while (await reader.ReadAsync(cancellationToken))
             {
@@ -64,7 +64,7 @@ public class HostedBackgroundService(ILogger<HostedBackgroundService> logger, IE
                 logger.LogWarning("Jobs without config detected: [{jobs}]", string.Join(", ", jobsMissingConfig));
             }
 
-
+            // schedule or update the configured jobs
             logger.LogInformation("Scheduling jobs [{keys)}]", string.Join(", ", jobConfigs.Keys));
             foreach (var hfj in jobConfigs)
             {
@@ -77,7 +77,6 @@ public class HostedBackgroundService(ILogger<HostedBackgroundService> logger, IE
                 }
                 catch (Exception ex)
                 {
-
                     logger.LogError(ex, "Error scheduling job [{jkey}]. Inner exception: [{ie}: {iem}]",
                         hfj.Key, ex.InnerException?.GetType(), ex.InnerException?.Message);
                     continue;
@@ -89,9 +88,9 @@ public class HostedBackgroundService(ILogger<HostedBackgroundService> logger, IE
                     jobManager.Trigger(hfj.Key);
                 }
 #if DEBUG // run anyway
-                // in debug we trigger every job anyway and use the turn on flag to decide if it should actually be executed
                 else
                 {
+                    // in debug we trigger every job anyway and use the turn on flag to decide if it should actually be executed
                     logger.LogWarning($"Debug directive: Triggering {hfj.Key} anyway.");
                     jobManager.Trigger(hfj.Key);
                 }
@@ -101,12 +100,13 @@ public class HostedBackgroundService(ILogger<HostedBackgroundService> logger, IE
         catch (Exception ex)
         {
             logger.LogError(ex, "Error starting background service");
+            throw;
         }
     }
 
-
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
+        // actually running the hangfire server
         var hangfireConfig = appsettings.Hangfire;
         using var server = new BackgroundJobServer(new BackgroundJobServerOptions
         {

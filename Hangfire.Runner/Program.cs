@@ -32,7 +32,7 @@ public class Program
                 var appsettings = hostContext.Configuration.Get<AppsettingsDto>() ?? throw new Exception("Could not load appsettings");
                 services
                     .AddSingleton(appsettings)
-                    .AddCustomHangfire(appsettings, GlobalConfiguration.Configuration)
+                    .AddCustomHangfireServer(appsettings, GlobalConfiguration.Configuration)
                     .AddHostedService<HostedBackgroundService>()
 
                     // add jobs here

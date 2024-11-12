@@ -36,7 +36,8 @@ public class Program
                     .AddHostedService<HostedBackgroundService>()
 
                     // add jobs here
-                    .AddTransient<IGenericJob, HelloWorldJob.HelloWorldJob>()                    
+                    .AddTransient<IGenericJob, HelloWorldJob.HelloWorldJob>()
+                    .AddTransient<IGenericJob, DynamicConcurrencyBatchJob.DynamicConcurrencyBatchJob>()
                     ;
             })
             .Build();

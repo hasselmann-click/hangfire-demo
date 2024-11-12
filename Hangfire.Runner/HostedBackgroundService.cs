@@ -28,7 +28,7 @@ public class HostedBackgroundService(ILogger<HostedBackgroundService> logger, IE
             var jobDict = jobs.ToDictionary(j => j.JobIdentifier, StringComparer.InvariantCultureIgnoreCase);
             var implementedJobIds = jobDict.Keys;
             var jobConfigs = appsettings.Hangfire.Jobs;
-            var queue = appsettings.Hangfire.Queue;
+            var queue = appsettings.Hangfire.Queue?.Split(",")[0];
 
             // fetch recurring job ids from database
             var recurringJobIds = new List<string>(jobConfigs.Count);
@@ -111,7 +111,7 @@ public class HostedBackgroundService(ILogger<HostedBackgroundService> logger, IE
         using var server = new BackgroundJobServer(new BackgroundJobServerOptions
         {
             WorkerCount = hangfireConfig.WorkerCount,
-            Queues = [hangfireConfig.Queue],
+            Queues = hangfireConfig.Queue?.Split(','),
             Activator = jobActivator
         });
 

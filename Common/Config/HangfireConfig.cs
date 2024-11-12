@@ -13,5 +13,6 @@ public class JobConfig
     public required string Cron { get; set; }
     public bool TurnOn { get; set; }
     public bool RunAtStartup { get; set; }
+    public Dictionary<string, string>? Custom { get; set; }
 }
 

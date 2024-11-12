@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="../Common/Common.csproj" />
     <ProjectReference Include="..\HelloWorldJob\HelloWorldJob.csproj" />
+    <ProjectReference Include="..\DynamicConcurrencyBatchJob\DynamicConcurrencyBatchJob.csproj" />
   </ItemGroup>
 
   <ItemGroup>

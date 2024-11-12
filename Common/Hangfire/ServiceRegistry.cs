@@ -13,6 +13,7 @@ public static class ServiceRegistry
         AddCustomHangfire(appsettings, globalConfiguration, serviceProvider);
 
         return services
+            .AddSingleton<IBackgroundJobClient, BackgroundJobClient>()
             .AddTransient<JobActivator, ContainerJobActivator>()
             .AddScoped<IRecurringJobManager, RecurringJobManager>()
             ;

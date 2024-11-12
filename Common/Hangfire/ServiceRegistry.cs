@@ -2,6 +2,7 @@ using Common.Config;
 using Common.Hangfire.Filters;
 using Hangfire;
 using Hangfire.SqlServer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Common.Hangfire;
@@ -35,4 +36,8 @@ public static class ServiceRegistry
         ;
     }
 
+    public static void ConfigureHangfireClient(ConfigurationManager configuration, object config)
+    {
+        throw new NotImplementedException();
+    }
 }

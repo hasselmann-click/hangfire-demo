@@ -1,9 +1,17 @@
 using Hangfire;
 using Common.Hangfire;
+using Common.Config;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddHangfire((sp, config)  => {
-    ServiceRegistry.ConfigureHangfireClient(builder.Configuration, config);
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+    .AddEnvironmentVariables()
+    .AddCommandLine(args);
+builder.Services.AddHangfire((sp, config) =>
+{
+    var appsettings = builder.Configuration.Get<AppsettingsDto>() ?? throw new Exception("Could not load appsettings");
+    ServiceRegistry.AddCustomHangfire(appsettings, config, sp);
 });
 var app = builder.Build();
 

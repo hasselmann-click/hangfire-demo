@@ -7,7 +7,18 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Common.Hangfire;
 public static class ServiceRegistry
 {
-    public static IServiceCollection AddCustomHangfire(this IServiceCollection services, AppsettingsDto appsettings, IGlobalConfiguration globalConfiguration)
+    public static IServiceCollection AddCustomHangfireServer(this IServiceCollection services, AppsettingsDto appsettings, IGlobalConfiguration globalConfiguration)
+    {
+        var serviceProvider = services.BuildServiceProvider();
+        AddCustomHangfire(appsettings, globalConfiguration, serviceProvider);
+
+        return services
+            .AddTransient<JobActivator, ContainerJobActivator>()
+            .AddScoped<IRecurringJobManager, RecurringJobManager>()
+            ;
+    }
+
+    public static void AddCustomHangfire(AppsettingsDto appsettings, IGlobalConfiguration globalConfiguration, IServiceProvider serviceProvider)
     {
         var dbConfig = appsettings.Database;
         globalConfiguration
@@ -23,16 +34,10 @@ public static class ServiceRegistry
                 UseRecommendedIsolationLevel = true,
                 DisableGlobalLocks = true
             })
-            .UseActivator(new ContainerJobActivator(services.BuildServiceProvider()))
+            .UseActivator(new ContainerJobActivator(serviceProvider))
             .UseFilter(new AutomaticRetryAttribute { Attempts = 0, LogEvents = true, OnAttemptsExceeded = AttemptsExceededAction.Delete })
             .UseFilter(new PreserveOriginalQueueAttribute())
             .UseFilter(new SkippableDisableConcurrentExecutionAttribute(timeoutInSeconds: 5))
             ;
-
-        return services
-            .AddTransient<JobActivator, ContainerJobActivator>()
-            .AddScoped<IRecurringJobManager, RecurringJobManager>()
-        ;
     }
-
 }

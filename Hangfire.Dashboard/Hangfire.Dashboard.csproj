@@ -10,6 +10,7 @@
     <ProjectReference Include="../Common/Common.csproj" />
     <ProjectReference Include="..\HelloWorldJob\HelloWorldJob.csproj" />
     <ProjectReference Include="..\DynamicConcurrencyBatchJob\DynamicConcurrencyBatchJob.csproj" />
+    <ProjectReference Include="..\Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj" />
   </ItemGroup>
 
   <ItemGroup>

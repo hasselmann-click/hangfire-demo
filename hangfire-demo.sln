@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelloWorldJob", "HelloWorld
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DynamicConcurrencyBatchJob", "DynamicConcurrencyBatchJob\DynamicConcurrencyBatchJob.csproj", "{340D8BC2-0AC9-4DD3-BF85-EEC537FAA562}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.AppHost", "Aspire.AppHost\Aspire.AppHost.csproj", "{1D2AFCC9-85CC-436F-A130-2A8FB0D8A1F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aspire.ServiceDefaults", "Aspire.ServiceDefaults\Aspire.ServiceDefaults.csproj", "{00B417F6-B437-4CAF-AF47-1A9A3E59E01B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{340D8BC2-0AC9-4DD3-BF85-EEC537FAA562}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{340D8BC2-0AC9-4DD3-BF85-EEC537FAA562}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{340D8BC2-0AC9-4DD3-BF85-EEC537FAA562}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D2AFCC9-85CC-436F-A130-2A8FB0D8A1F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D2AFCC9-85CC-436F-A130-2A8FB0D8A1F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D2AFCC9-85CC-436F-A130-2A8FB0D8A1F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D2AFCC9-85CC-436F-A130-2A8FB0D8A1F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00B417F6-B437-4CAF-AF47-1A9A3E59E01B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00B417F6-B437-4CAF-AF47-1A9A3E59E01B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00B417F6-B437-4CAF-AF47-1A9A3E59E01B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00B417F6-B437-4CAF-AF47-1A9A3E59E01B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -13,6 +13,9 @@ builder.Services.AddHangfire((sp, config) =>
     var appsettings = builder.Configuration.Get<AppsettingsDto>() ?? throw new Exception("Could not load appsettings");
     ServiceRegistry.AddCustomHangfire(appsettings, config, sp);
 });
+
+builder.AddServiceDefaults();
+
 var app = builder.Build();
 
 app.UseHangfireDashboard(""); // map to root

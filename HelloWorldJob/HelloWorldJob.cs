@@ -11,7 +11,7 @@ public class HelloWorldJob(AppsettingsDto appsettings, ILogger<HelloWorldJob> lo
 
     protected override Task ExecuteInnerAsync(CancellationToken stoppingToken)
     {
-        logger.LogInformation("Hello World!");
+        logger.LogInformation("Hello World 2!");
         return Task.CompletedTask;
     }
 }
